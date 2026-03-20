@@ -3,6 +3,10 @@
 HTTP 요청, DNS 조회, 네트워크 진단 기능을 제공하는 경량 MCP(Model Context Protocol) 서버.
 Claude.ai 웹 채팅 또는 Claude Code에서 네트워크 관련 작업을 수행할 수 있습니다.
 
+## 이게 왜 필요하나요?
+가끔 Claude.ai가 fetch 못하는 웹페이지같은걸 읽어들이기 위해 만들었습니다.
+항상 Claude Code로 모든것을 처리할수는 없지만, MCP에 쉘을 줄순 없잖아요?
+
 ## 제공 Tool
 
 | Tool | 설명 |
