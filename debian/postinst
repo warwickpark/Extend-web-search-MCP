@@ -1,0 +1,22 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+    configure)
+        # venv 생성 및 Python 의존성 설치
+        python3 -m venv /opt/mcp-bridge/venv
+        /opt/mcp-bridge/venv/bin/pip install -q -r /opt/mcp-bridge/requirements.txt
+
+        # ping capability 설정 (unprivileged LXC 대응)
+        if command -v setcap &>/dev/null; then
+            setcap cap_net_raw+ep /usr/bin/ping 2>/dev/null || true
+        fi
+
+        # systemd 서비스 활성화
+        systemctl daemon-reload
+        systemctl enable mcp-bridge.service
+        systemctl restart mcp-bridge.service
+        ;;
+esac
+
+exit 0

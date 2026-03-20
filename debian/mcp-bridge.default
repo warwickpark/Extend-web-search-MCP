@@ -1,0 +1,5 @@
+# /etc/default/mcp-bridge
+# MCP Bridge 환경변수 설정
+
+# Bearer 인증 토큰 (비워두면 인증 비활성화)
+MCP_AUTH_TOKEN=

@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+
+case "$1" in
+    purge)
+        rm -rf /opt/mcp-bridge/venv /opt/mcp-bridge/__pycache__
+        systemctl daemon-reload
+        ;;
+    remove)
+        systemctl daemon-reload
+        ;;
+esac
+
+exit 0
