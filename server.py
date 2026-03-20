@@ -288,7 +288,5 @@ async def port_check(host: str, ports: str = "22,80,443") -> str:
 # ── 엔트리포인트 ────────────────────────────────────────
 
 if __name__ == "__main__":
-    # FastMCP 2.x: SSE transport
-    # 향후 streamable-http 전환 시:
-    #   mcp.run(transport="streamable-http", host="127.0.0.1", port=8080)
-    mcp.run(transport="sse", host="0.0.0.0", port=8080)
+    # Streamable HTTP transport — endpoint: /mcp
+    mcp.run(transport="http", host="0.0.0.0", port=8080)

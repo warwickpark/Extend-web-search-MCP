@@ -69,7 +69,7 @@ systemctl enable --now mcp-bridge
 
 서버가 외부에서 접근 가능해야 합니다. 리버스 프록시 또는 Cloudflare Tunnel 등을 통해 노출한 뒤:
 
-**Settings → Integrations → Add MCP Server** → URL: `https://your-domain.com/sse`
+**Settings → Integrations → Add MCP Server** → URL: `https://your-domain.com/mcp`
 
 ### Claude Code (stdio)
 
