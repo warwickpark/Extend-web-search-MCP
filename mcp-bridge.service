@@ -1,12 +1,11 @@
 [Unit]
-Description=Homelab MCP Bridge
+Description=MCP Bridge Server
 After=network.target
 
 [Service]
 Type=simple
 User=nobody
 WorkingDirectory=/opt/mcp-bridge
-EnvironmentFile=-/etc/default/mcp-bridge
 ExecStart=/opt/mcp-bridge/venv/bin/python3 server.py
 Restart=on-failure
 RestartSec=5

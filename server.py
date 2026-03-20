@@ -1,6 +1,5 @@
 import asyncio
 import ipaddress
-import os
 import re
 from urllib.parse import urlparse
 
@@ -8,14 +7,11 @@ from fastmcp import FastMCP
 import aiohttp
 
 mcp = FastMCP(
-    "homelab-bridge",
-    instructions="홈랩 네트워크 브릿지. HTTP 요청, DNS 조회, 네트워크 진단 제공.",
+    "mcp-bridge",
+    instructions="네트워크 유틸리티 MCP 서버. HTTP 요청, DNS 조회, 네트워크 진단 제공.",
 )
 
 MAX_BODY_SIZE = 100_000  # 약 100KB
-
-# 인증 토큰 (환경변수에서 로드)
-AUTH_TOKEN = os.environ.get("MCP_AUTH_TOKEN", "")
 
 # 응답에 포함할 안전한 헤더 목록
 SAFE_RESPONSE_HEADERS = {
@@ -30,11 +26,6 @@ BLOCKED_CIDRS = [
     ipaddress.ip_network("127.0.0.0/8"),         # loopback
     ipaddress.ip_network("::1/128"),             # IPv6 loopback
     ipaddress.ip_network("fe80::/10"),           # IPv6 link-local
-]
-
-# 허용할 내부 대역 (홈랩)
-ALLOWED_INTERNAL_CIDRS = [
-    ipaddress.ip_network("10.0.0.0/16"),         # 홈랩 VLAN 대역
 ]
 
 # 허용 HTTP 메서드
@@ -98,20 +89,6 @@ def filter_headers(headers: dict) -> dict:
     }
 
 
-# ── 인증 미들웨어 ──────────────────────────────────────
-
-def verify_auth(token: str | None) -> tuple[bool, str]:
-    """Bearer 토큰 검증."""
-    if not AUTH_TOKEN:
-        # 토큰 미설정 시 인증 비활성화 (개발 모드)
-        return True, "ok"
-    if not token:
-        return False, "인증 토큰이 필요합니다"
-    if token != AUTH_TOKEN:
-        return False, "유효하지 않은 토큰입니다"
-    return True, "ok"
-
-
 # ── http_fetch ──────────────────────────────────────────
 
 @mcp.tool()
@@ -123,8 +100,7 @@ async def http_fetch(
     timeout: int = 30,
     verify_ssl: bool = True,
 ) -> dict:
-    """임의 URL에 HTTP 요청. 홈랩 API 호출 및 외부 URL fetch 겸용.
-    verify_ssl=False: 자체서명 인증서 사용 시."""
+    """임의 URL에 HTTP 요청. verify_ssl=False: 자체서명 인증서 사용 시."""
 
     # HTTP 메서드 검증
     if method.upper() not in ALLOWED_METHODS:

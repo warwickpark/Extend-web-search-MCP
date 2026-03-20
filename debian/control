@@ -15,7 +15,6 @@ Depends: ${misc:Depends},
          iputils-ping,
          traceroute,
          whois
-Description: Homelab MCP Bridge Server
- Claude.ai 웹 채팅에서 홈랩 네트워크에 접근하기 위한
+Description: MCP Bridge Server
+ HTTP 요청, DNS 조회, 네트워크 진단 기능을 제공하는
  경량 MCP(Model Context Protocol) 서버.
- HTTP 요청, DNS 조회, 네트워크 진단 tool을 제공합니다.

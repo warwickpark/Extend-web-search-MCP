@@ -8,5 +8,3 @@ override_dh_auto_install:
 	install -m 644 requirements.txt $(CURDIR)/debian/mcp-bridge/opt/mcp-bridge/requirements.txt
 	install -d $(CURDIR)/debian/mcp-bridge/lib/systemd/system
 	install -m 644 mcp-bridge.service $(CURDIR)/debian/mcp-bridge/lib/systemd/system/mcp-bridge.service
-	install -d $(CURDIR)/debian/mcp-bridge/etc/default
-	install -m 640 debian/mcp-bridge.default $(CURDIR)/debian/mcp-bridge/etc/default/mcp-bridge
