@@ -4,13 +4,13 @@ After=network.target
 
 [Service]
 Type=simple
-User=nobody
+DynamicUser=yes
 WorkingDirectory=/opt/mcp-bridge
 ExecStart=/opt/mcp-bridge/venv/bin/python3 server.py
 Restart=on-failure
 RestartSec=5
 
-# ping capability를 nobody 사용자에게 상속
+# ping capability
 AmbientCapabilities=CAP_NET_RAW
 
 [Install]
